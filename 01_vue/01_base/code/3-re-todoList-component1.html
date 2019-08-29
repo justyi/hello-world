@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3-re-todoList-component1</title>
+    <script src="../lib/vue2.6.8.js"></script>
+</head>
+<body>
+    <!-- 
+         Vue.component
+
+     -->
+    <div id="app">
+        <input type="text" v-model="inputValue">
+        <input type="button" value="提交" @click="handleBtnClick">
+        <ul>
+            <todo-item v-for="item of list"
+                       :content="item"              
+            >
+            </todo-item>
+        </ul>
+    </div>
+    
+    <script>
+
+        Vue.component('TodoItem',{
+            props:["content"],
+            template:'<li>{{content}}</li>'
+        })
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                list:[],
+                inputValue:""
+            },
+            methods:{
+                handleBtnClick:function(){
+                    if(this.inputValue){
+                        this.list.push(this.inputValue)
+                        this.inputValue=""
+                    }
+                }
+            }
+        })    
+    </script>
+</body>
+</html>

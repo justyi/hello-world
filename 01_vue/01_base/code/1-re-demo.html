@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue的第一个实例</title>
+    <script src="../lib/vue2.6.8.js"></script>
+</head>
+<body>
+    <!-- 
+        MVVM模式
+        Vue提供另一种方式来操作dom，通过对vue实例的修改来操作dom元素
+     -->
+    <div id="app">
+        {{msg}}
+    </div>
+    
+    <script>
+            var vm = new Vue({
+                el:"#app",
+                data:{
+                    msg:" 你好 加油"
+                }
+            })
+    </script>
+</body>
+</html>

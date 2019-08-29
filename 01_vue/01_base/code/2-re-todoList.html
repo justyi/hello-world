@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2-re-todoList</title>
+    <script src="../lib/vue2.6.8.js"></script>
+</head>
+<body>
+    <!-- 
+        v-for
+        v-mdoel
+        @click
+     -->
+    <div id="app">
+        <input type="text" v-model="inputValue">
+        <input type="button" value="提交" @click="handleBtnClick">
+        <ul>
+            <li v-for="item in list">
+                {{item}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                list:[],
+                inputValue:""
+            },
+            methods:{
+                handleBtnClick:function(){
+                    console.log("handleBtnClick is called");
+                    if(this.inputValue){
+                        this.list.push(this.inputValue)
+                        this.inputValue=""
+                    }
+                }
+            }
+        })    
+    </script>
+</body>
+</html>
