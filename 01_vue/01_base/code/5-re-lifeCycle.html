@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>5-re-lifeCycle-生命周期函数</title>
+    <script src="../lib/vue2.6.8.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <!-- <div>hello world</div> -->
+    </div>
+    <script>
+        // 生命周期函数 某个时间点会自动执行的函数
+        // initEvents&lifeCycle ==> beforCreate ===> init injection & reactivity【外部注入及双向绑定】 ===> created
+        // has "el" option || has "template" option  compiles el's outHtml as template  
+        // 有模板择通过模板渲染  --> 如果有el对应的元素作为模板 来渲染
+        // 模板和数据结合即将挂载在页面上时候 ==> beforeMount
+        // 页面挂载之后 ==> mounted
+
+
+        var vm = new Vue({
+            el:"#app", //
+            template:"<div>hello world</div>",
+            beforeCreate:function(){
+                console.log("beforCreate");
+            },
+            created:function(){
+                console.log("created");
+            },
+            beforeMount:function(){
+                // beforemount 页面还没有被渲染
+                console.log("beforeMount");
+                console.log(this.$el);                    
+            },
+            mounted:function(){
+                // beforemount 页面已经被渲染
+                console.log("mounted");
+                console.log(this.$el);
+            },
+            beforeDestroy:function(){
+                // vm.$ destory()   实例被销毁之前
+                console.log("beforeDestory");
+            },
+            destroyed:function(){
+                // 实例被销毁之后
+                console.log("destroyed");
+            },
+            beforeUpdate:function(){
+                console.log("beforeUpdate ");
+            },
+            updated:function(){
+                console.log("updated ");
+            }
+        
+        });
+    </script>
+</body>
+</html>
