@@ -3,65 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>每天复习用</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../lib/vue2.6.8.js"></script>
+    <title>每天复习用 20:35 加油 20:48</title>
 </head>
 <body>
     <div id="app"> 
-        {{msg}}
         <input type="text" v-model="inputValue">
         <input type="button" value="提交" @click="handleBtnClick">
-        <!-- <ul>
-            <li v-for="item in list">
-                {{item}}
-            </li>
-        </ul> -->
         <ul>
             <todo-item  v-for="(item,idx) in list"
-                        :content="item"
-                        :index="idx"
-                        @delete="handleItemDelete"
-            >
+                        :content="item" 
+                        :index="idx"               
+                        @delete="handleItemDelete">        
             </todo-item>
         </ul>
-
     </div>
     
-    <!-- todo-item -->
     <script>
-        Vue.component('TodoItem',{
+        var TodoItem = {
             props:["content","index"],
             template:"<li @click='handleItemClick'>{{content}}</li>",
             methods:{
                 handleItemClick:function(){
-                    this.$emit('delete',this.index)
+                    console.log("handleItemClick is calling");
+                    this.$emit('delete',this.index);
                 }
             }
-        })
+        }
+
         var vm = new Vue({
             el:"#app",
             data:{
-                msg:"每天复习  21:31",
                 list:[],
                 inputValue:""
             },
+            components:{
+                TodoItem:TodoItem
+            },
             methods:{
                 handleBtnClick:function(){
-                    console.log("handleBtnClick is click");
+                    console.log("handleBtnClick is calling");
                     if(this.inputValue){
                         this.list.push(this.inputValue)
-                        this.inputValue=""
+                        this.inputValue = ""
                     }
-                },
-                handleItemDelete:function(tmp){
-                    console.log("handleItemDelete is click %s",tmp);
-                    if(tmp!=-1){
-                        this.list.splice(tmp,1)
-                    }
+                },      
+                handleItemDelete:function(idx){
+                    console.log("handleItemDelete is calling");
+                    this.list.splice(idx,1)
                 }
             }
-
-
         })
     </script>
 </body>

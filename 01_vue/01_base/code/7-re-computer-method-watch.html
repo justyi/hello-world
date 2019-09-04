@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算属性监听器</title>
+    <script src="../lib/vue2.6.8.js"></script>
+</head>
+<body>
+    <!-- 
+        1.需求 显示姓+名  firstName + lastName
+        2. 模板只用来显示 不要有其他逻辑  用一个变量来代替
+        3. 计算属性 computed:
+            见名知意 ==> 值是通过计算得来的
+
+        4. 在页面控制台测试缓存机制  vm.age=28 页面重新渲染 但是 fullName没有重新计算
+            当他依赖的firstName发生改变时候 计算属性会重新计算一次
+
+        ================
+        通过methods来实现
+        1. methods 里定义方法 通过方法返回值 在页面显示
+        2. 改变data里的值时候方法会重新计算一次 [没有缓存机制]
+
+        ================
+        通过watch 监听器方式实现
+            1. 监听某个属性的改变  来为某个相关属性进行操作
+            2. 这里可能需要监听多个相关属性
+                当某个监听属性改变时候 该监听器执行
+
+     -->
+    <div id="app">
+        <!-- {{firstName + " " + lastName}} -->
+        <!-- {{fullName}} -->
+        <!-- {{fullName2()}} -->
+        {{fullName3}}
+        {{age}}
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                firstName:"just",
+                lastName:"Lin",
+                fullName3:"just Lin",
+                age:27
+            },
+            // 计算属性  有缓存机制: 依赖的变量没有发生改变时候 不会再次调用 
+            computed:{
+                fullName:function(){
+                    console.log("计算了一次");
+                    return this.firstName+" "+this.lastName;
+                }
+            },
+            // 通过方法
+            methods:{
+                fullName2:function(){
+                    console.log("方法执行一次");
+                    return this.firstName+" "+this.lastName;
+                }
+            },
+            watch:{
+                firstName:function(){
+                    console.log("监听firstName执行一次");
+                    this.fullName3 = this.firstName+" "+this.lastName;
+                },
+                lastName:function(){
+                    console.log("监听lastName执行一次");
+                    this.fullName3 = this.firstName+" "+this.lastName;
+                },
+            }
+
+        })
+    </script>
+</body>
+</html>

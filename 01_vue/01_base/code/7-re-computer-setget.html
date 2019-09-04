@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../lib/vue2.6.8.js"></script>
+    <title>7-计算属性的set和get方法</title>
+</head>
+<body>
+    <!-- 
+        1. 一个挂载点 和最基本的Vue实例
+        2. 使用插值表达式时候  会先去 插值表达式里找 找不到的话去计算属性里找
+        3. computed： 当他所依赖值变化时候 重新计算  
+     -->
+    <div id="app">
+        {{fullName}}
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                firstName:"Just",
+                lastName:"Lin",
+            },
+            computed:{
+                // fullName:function(){
+                //     return this.firstName+" "+this.lastName;
+                // }         
+                fullName:{
+                    get:function(){
+                        return this.firstName+" "+this.lastName;
+                    },
+                    set:function(fullNameVal){
+                        console.log(fullNameVal);
+                        var arr = fullNameVal.split(" ");
+                        this.firstName = arr[0]
+                        this.lastName = arr[1]
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

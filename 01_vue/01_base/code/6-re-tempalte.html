@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <tit le>6-模板语法 插值表达式及相关</title>
+    <script src="../lib/vue2.6.8.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <!-- 第一种方式 插值表达式  -->
+        {{msg +' afds'}}
+
+        <!-- 数据变量显示在页面上 -->
+        <!-- 第2种方式 v-text -->
+        <div v-text="msg2 + ' asda'">
+        </div>
+        
+        <!-- 第2种方式 v-html -->
+        <div v-html="msg3 +' asd'">
+        </div>
+        <!-- 以上三种模板语法都可以通过js表达式  做运算 -->
+
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                msg:"hello word",
+                msg2:"msg2",
+                msg3:"<h1>Just</h1>",
+            } 
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../lib/vue2.6.8.js"></script>
+    <title>8-样式绑定</title>
+    <style >
+        .activated {
+            color: red;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- 
+        需求： 当div 点击一次时候颜色变红色 再点击则恢复默认展示    
+        解决    
+            :class={}  js表达式
+                1.传入对象 :class={activated: isActivated} 
+                    div 上绑定一个class activated 显示与否取决于后面的变量 isActivated
+                2.传入数组 :class=[activated]
+                通过这两种方式  向一个dom元素添加删除不同的class 从而实现页面效果变更
+            
+            :style={} style 改变样式    
+                1. 对象 :style={styleObj} 数据项  css样式放在该对象中
+                2. 数组 :style=[styleObj] 样式由数组里的对象决定            
+
+            Vue编程  面向数据编程  不再是直接操作dom 数据和样式关联
+     -->
+    <div id="app">
+        <div @click="handleDivClick" 
+             :class=[activated,activatedOne]
+        >
+            Hello Word
+        </div>
+
+        <div :style="styleObj" @click="hanleDiv2Click">
+            hello2
+        </div>
+
+        <div :style=[styleObj,{fontSize:'20px'}] @click="hanleDiv3Click">
+                hello3
+        </div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                isActivated:false,
+                activated:"",
+                activatedOne :"activatedOne",
+                styleObj:{
+                    color:"black",
+                }
+            },
+            methods:{
+                handleDivClick:function(){
+                    console.log("handleDivClick is calling");
+                    // this.isActivated =  !this.isActivated;            
+                    this.activated = this.activated ?"": "activated";
+                },
+                hanleDiv2Click:function(){
+                    this.styleObj.color= this.styleObj.color=="red"?"black":"red";
+                },
+                hanleDiv3Click:function(){
+                    this.styleObj.color= this.styleObj.color=="red"?"black":"red";
+                }
+            }
+        })
+    </script>
+</body>
+</html>
