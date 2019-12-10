@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../lib/vue2.6.8.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 好久没有练习Vue 回顾下之前的 -->
+    <div id="app">
+        <input type="text" v-model="inputValue">
+        <input type="button" value="测试" @click="handleBtnClick">
+        <todo-item v-for="(item,idx) of list"
+                        :msg="item"
+                        :index="idx"
+                        @subclick="handleSubClick">
+            
+        </todo-item>
+    </div>
+    
+    <script>
+        var todoItem = {
+            props:["msg","index"],
+            template:"<li @click='handleLiClick'>{{msg}}</li>",
+            methods:{
+                handleLiClick:function(){
+                    this.$emit("subclick",this.index)
+                }
+            }
+        }
+        
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                list:[],
+                inputValue:""
+            },
+            components:{
+                'todoItem':todoItem
+            },
+            methods:{
+                handleBtnClick: function(){
+                    if(this.inputValue){
+                        this.list.push(this.inputValue)
+                        this.inputValue=""
+                    }
+                },
+                handleSubClick:function(subIdx){
+                    this.list.splice(subIdx,1);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
